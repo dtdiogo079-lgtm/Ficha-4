@@ -10,14 +10,26 @@
 //
 // Tarefa 1: substitui este array vazio pelo array cards do teu server
 // (o que fizeste na aula 2).
-const cards = ["Dragão de Cobalto","Guardiã das Marés","Raio Carmesim","Muralha de Granito", "Lobo das Cinzas"];
+import { useState } from "react";
+import Card from "./Card";
+
+const cards = [{ name: "Dragão de Cobalto", type: "Criatura", attack: 7, defense: 5 },
+  { name: "Guardiã das Marés", type: "Criatura", attack: 4, defense: 8 },
+  { name: "Raio Carmesim", type: "Feitiço", attack: 6, defense: 0 },
+  { name: "Muralha de Granito", type: "Estrutura", attack: 0, defense: 10 },
+  { name: "Lobo das Cinzas", type: "Criatura", attack: 5, defense: 3 },];
 
 function App() {
   return (
     <main>
       <h1>A minha coleção</h1>
-    </main>
-  );
+       {cards.map((card) => (
+    <Card key={card.name} card={card} />
+  ))}
+</main>
+
+);
 }
 
 export default App;
+ 
