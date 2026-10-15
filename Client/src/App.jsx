@@ -23,33 +23,54 @@ const cards = [{ name: "Dragão de Cobalto", type: "Criatura", attack: 7, defens
   { name: "Lobo das Cinzas", type: "Criatura", attack: 5, defense: 3 },];
 
 function App() {
-  const [tipo, setTipo] = useState("Todas");
+ const [tipo, setTipo] = useState("Todas");
+const [pesquisa, setPesquisa] = useState("");
+
 const cartasFiltradas = cards.filter((card) => {
-  return (
-    tipo === "Todas" ||
-    (tipo === "Criatura" && card.type === "Criatura") ||
-    (tipo === "Feitiço" && card.type === "Feitiço")
-  );
+const correspondeTipo =
+tipo === "Todas" ||
+(tipo === "Criatura" && card.type === "Criatura") ||
+(tipo === "Feitiço" && card.type === "Feitiço");
+
+const correspondePesquisa = card.name
+  .toLowerCase()
+  .includes(pesquisa.toLowerCase());
+
+return correspondeTipo && correspondePesquisa;
+
 });
+  
   return (
     
     <main>
-      <div>
-  <button onClick={() => setTipo("Todas")}>Todas</button>
-  <button onClick={() => setTipo("Criatura")}>Só criaturas</button>
-  <button onClick={() => setTipo("Feitiço")}>Só feitiços</button>
-</div>
-      <p>Tenho: {cards.length} cartas. Estão à vista {cartasFiltradas.length}.</p> 
+      
       <h1>A minha coleção</h1>
-       {cartasFiltradas.map((card) => (
-  <Card key={card.name} card={card} />
-    
+
+  <p>
+    Tenho {cards.length} cartas. Estão à vista {cartasFiltradas.length}.
+  </p>
+
+  <div>
+    <button onClick={() => setTipo("Todas")}>Todas</button>
+    <button onClick={() => setTipo("Criatura")}>Só criaturas</button>
+    <button onClick={() => setTipo("Feitiço")}>Só feitiços</button>
+  </div>
+
+  <div>
+    <input
+      type="text"
+      placeholder="Pesquisar carta..."
+      value={pesquisa}
+      onChange={(e) => setPesquisa(e.target.value)}
+    />
+  </div>
+
+  {cartasFiltradas.map((card) => (
+    <Card key={card.name} card={card} />
   ))}
-  
 </main>
 
 );
 }
 
 export default App;
- 
