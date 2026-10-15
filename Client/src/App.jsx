@@ -13,6 +13,9 @@
 import { useState } from "react";
 import Card from "./Card";
 
+
+
+
 const cards = [{ name: "Dragão de Cobalto", type: "Criatura", attack: 7, defense: 5 },
   { name: "Guardiã das Marés", type: "Criatura", attack: 4, defense: 8 },
   { name: "Raio Carmesim", type: "Feitiço", attack: 6, defense: 0 },
@@ -22,6 +25,7 @@ const cards = [{ name: "Dragão de Cobalto", type: "Criatura", attack: 7, defens
 function App() {
   return (
     <main>
+      <p>Tenho: {cards.length} cartas</p> 
       <h1>A minha coleção</h1>
        {cards.map((card) => (
     <Card key={card.name} card={card} />
