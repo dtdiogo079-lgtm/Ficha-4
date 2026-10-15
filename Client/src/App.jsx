@@ -23,7 +23,14 @@ const cards = [{ name: "Dragão de Cobalto", type: "Criatura", attack: 7, defens
   { name: "Lobo das Cinzas", type: "Criatura", attack: 5, defense: 3 },];
 
 function App() {
- const [tipo, setTipo] = useState("Todas");
+
+const [cartaSorte, setCartaSorte] = useState(null);
+
+function escolherCarta() {
+const indice = Math.floor(Math.random() * cards.length);
+  setCartaSorte(cards[indice]);}
+
+const [tipo, setTipo] = useState("Todas");
 const [pesquisa, setPesquisa] = useState("");
 
 const cartasFiltradas = cards.filter((card) => {
@@ -49,14 +56,15 @@ return correspondeTipo && correspondePesquisa;
   <p>
     Tenho {cards.length} cartas. Estão à vista {cartasFiltradas.length}.
   </p>
-
+  
   <div>
-    <button onClick={() => setTipo("Todas")}>Todas</button>
-    <button onClick={() => setTipo("Criatura")}>Só criaturas</button>
-    <button onClick={() => setTipo("Feitiço")}>Só feitiços</button>
-  </div>
+  <button onClick={escolherCarta}>Carta à sorte</button>
 
-  <div>
+  <button onClick={() => setTipo("Todas")}>Todas</button>
+  <button onClick={() => setTipo("Criatura")}>Só criaturas</button>
+  <button onClick={() => setTipo("Feitiço")}>Só feitiços</button>
+</div>
+<div>
     <input
       type="text"
       placeholder="Pesquisar carta..."
@@ -64,6 +72,16 @@ return correspondeTipo && correspondePesquisa;
       onChange={(e) => setPesquisa(e.target.value)}
     />
   </div>
+
+
+{cartaSorte && (
+  <section>
+    <h2>Carta escolhida</h2>
+    <Card card={cartaSorte} />
+  </section>
+)}
+
+  
 
   {cartasFiltradas.map((card) => (
     <Card key={card.name} card={card} />
